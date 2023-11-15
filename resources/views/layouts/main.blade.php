@@ -14,14 +14,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/7c5d2007df.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
         body {
             font-family: 'Cairo', sans-serif;
             background-color: #f0f0f0;
         }
     </style>
-    <script src="https://kit.fontawesome.com/7c5d2007df.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @yield('head')
 </head>
 
 <body style="text-align: right">
@@ -107,7 +108,8 @@
                                                 @csrf
 
                                                 <x-responsive-nav-link href="{{ route('logout') }}"
-                                                    @click.prevent="$root.submit();">
+                                                    onclick="event.preventDefault();
+                                                    this.closest('form').submit();">
                                                     {{ __('Log Out') }}
                                                 </x-responsive-nav-link>
                                             </form>
@@ -157,7 +159,11 @@
                 </div>
             </div>
         </nav>
+        <main class="py-4">
+            @yield('content')
+        </main>
     </div>
+    @yield('script')
 </body>
 
 </html>
