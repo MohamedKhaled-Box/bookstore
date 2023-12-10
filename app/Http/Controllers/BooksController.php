@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class BooksController extends Controller
 {
+
+    public function details(Book $book)
+    {
+        return view('Books.details', compact('book'));
+    }
     /**
      * Display a listing of the resource.
      */

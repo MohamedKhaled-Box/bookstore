@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('books', function (Blueprint $table) {
+        Schema::create('Books', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('publisher_id')->nullable();
@@ -20,6 +20,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->unsignedInteger('publisher_year')->nullable();
             $table->unsignedInteger('number_of_pages');
+            $table->unsignedInteger('number_of_copies');
+            $table->unsignedInteger('price');
+            $table->string('cover_image');
             $table->timestamps();
         });
     }

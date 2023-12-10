@@ -7,6 +7,24 @@ use Illuminate\Http\Request;
 
 class PublishersController extends Controller
 {
+    public function result(Publisher $publisher)
+    {
+        $books = $publisher->books()->paginate(12);
+        $title = 'books for ' . $publisher->name;
+        return view('gallery', compact('books', 'title'));
+    }
+    public function list(Publisher $publisher)
+    {
+        $publishers = Publisher::all()->sortBy('name');
+        $title = 'publishers';
+        return view('publishers.index', compact('publishers', 'title'));
+    }
+    public function search(Request $request)
+    {
+        $publishers = Publisher::where('name', 'like', "%{$request->term}")->get()->sortBy('name');
+        $title = 'search results for ' . $request->term;
+        return view('publishers.index', compact('publishers', 'title'));
+    }
     /**
      * Display a listing of the resource.
      */

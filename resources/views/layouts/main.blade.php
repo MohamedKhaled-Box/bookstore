@@ -29,7 +29,7 @@
     <div>
         <nav class="navbar navbar-expand-lg bg-body-tertiary bg-white">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">library</a>
+                <a class="navbar-brand" href="{{ url('/') }}">library</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -39,13 +39,13 @@
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item" href="#">
 
-                            <a href="#" class="nav-link">categories
+                            <a href="{{ route('gallery.categories.index') }}" class="nav-link">categories
                                 <i class="fas fa-list"></i>
                             </a>
                         </li>
                         <li class="nav-item" href="#">
 
-                            <a href="#" class="nav-link">publishers
+                            <a href="{{ route('gallery.publishers.index') }}" class="nav-link">publishers
                                 <i class="fas fa-table"></i>
                             </a>
                         </li>
@@ -67,7 +67,7 @@
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('sign in') }}</a>
                             </li>
                             @if (Route::has('register'))
-                                <li class="nav-link">
+                                <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('sign up') }}</a>
                                 </li>
                             @endif
