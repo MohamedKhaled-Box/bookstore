@@ -51,7 +51,7 @@
                         </li>
                         <li class="nav-item" href="#">
 
-                            <a href="#" class="nav-link">authors
+                            <a href="{{ route('gallery.authors.index') }}" class="nav-link">authors
                                 <i class="fas fa-pen"></i>
                             </a>
                         </li>
