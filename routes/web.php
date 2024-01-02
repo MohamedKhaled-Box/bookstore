@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminsController;
 use App\Http\Controllers\AuthorsController;
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\CategoriesController;
@@ -40,3 +41,13 @@ Route::get('/publishers/{publisher}', [PublishersController::class, 'result'])->
 Route::get('/authors', [AuthorsController::class, 'list'])->name('gallery.authors.index');
 Route::get('/authors/search', [AuthorsController::class, 'search'])->name('gallery.authors.search');
 Route::get('/authors/{author}', [AuthorsController::class, 'result'])->name('gallery.authors.show');
+Route::get('/admin', [AdminsController::class, 'index'])->name('admin.index');
+Route::resource('/admin/books', 'App\Http\Controllers\categoriesController');
+// Route::get('/admin/books', [BooksController::class, 'index'])->name('books.index');
+// Route::get('/admin/books/create', [BooksController::class, 'create'])->name('books.create');
+// Route::post('/admin/Books', [BooksController::class, 'store'])->name('books.store');
+// Route::get('/admin/Books/{book}', [BooksController::class, 'show'])->name('books.show');
+// Route::get('/admin/Books/{book}/edit', [BooksController::class, 'edit'])->name('books.edit');
+// Route::patch('/admin/Books/{book}', [BooksController::class, 'update'])->name('books.update');
+// Route::delete('/admin/Books/{book}', [BooksController::class, 'destroy'])->name('books.destroy');
+Route::resource('/admin/categories', 'App\Http\Controllers\categoriesController');

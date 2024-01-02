@@ -31,7 +31,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -39,7 +40,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -47,7 +48,13 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, ['name' => 'required']);
+        $category = new Category;
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->save();
+        session()->flash('flash_message', 'category added');
+        return redirect(route('categories.index'));
     }
 
     /**
@@ -63,7 +70,7 @@ class CategoriesController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -71,7 +78,12 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $this->validate($request, ['name' => 'required']);
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->save();
+        session()->flash('flash_message', 'category edited');
+        return redirect(route('categories.index'));
     }
 
     /**
@@ -79,6 +91,8 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        session()->flash('flash_message', 'category deleted');
+        return redirect(route('gallery.categories.index'));
     }
 }
