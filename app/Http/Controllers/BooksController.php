@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\author;
+use App\Models\Rating;
 use App\Traits\ImageUploadTrait;
 use App\Models\Category;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Intervention\Image\Facades\Image as Image;
@@ -17,10 +19,10 @@ class BooksController extends Controller
 {
 
     use ImageUploadTrait;
-    public function details(Book $book)
-    {
-        return view('Books.details', compact('book'));
-    }
+    // public function details(Book $book)
+    // {
+    //     return view('Books.details', compact('book'));
+    // }
     /**
      * Display a listing of the resource.
      */
@@ -157,5 +159,30 @@ class BooksController extends Controller
         $book->delete();
         session()->flash('flash_message', 'delete');
         return redirect(route('books.index'));
+    }
+
+    public function details(Book $book)
+    {
+        $bookfind = 0;
+        if (Auth::check()) {
+            $bookfind = auth()->user()->ratedpurches()->where('book_id', $book->id)->first();
+        }
+        return view('books.details', compact('book', 'bookfind'));
+    }
+
+    public function rate(Request $request, Book $book)
+    {
+        if (auth()->user()->rated($book)) {
+            $rating = Rating::where(['user_id' => auth()->user()->id, 'book_id' => $book->id])->first();
+            $rating->value = $request->value;
+            $rating->save();
+        } else {
+            $rating = new Rating;
+            $rating->user_id = auth()->user()->id;
+            $rating->book_id = $book->id;
+            $rating->value = $request->value;
+            $rating->save();
+        }
+        return back();
     }
 }

@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Paddle\Billable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -17,6 +18,8 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use Billable;
+
 
     /**
      * The attributes that are mass assignable.
@@ -58,4 +61,36 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    public function isAdmin()
+    {
+        return $this->administration_level > 0 ? true : false;
+    }
+    public function isSuperAdmin()
+    {
+        return $this->administration_level > 1 ? true : false;
+    }
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+    public function rated(Book $book)
+    {
+        return $this->ratings->where('book_id', $book->id)->isNotEmpty();
+    }
+    public function bookRating(Book $book)
+    {
+        return $this->rated($book) ? $this->ratings->where('book_id', $book->id)->first() : null;
+    }
+    public function booksInCart()
+    {
+        return $this->belongsToMany('App\Models\Book')->withPivot(['number_of_copies', 'bought', 'price'])->wherePivot('bought', false);
+    }
+    public function ratedpurches()
+    {
+        return $this->belongsToMany('App\Models\Book')->withPivot(['bought'])->wherePivot('bought', true);
+    }
+    public function purchedProduct()
+    {
+        return $this->belongsToMany('App\Models\Book')->withPivot(['number_of_copies', 'bought', 'price', 'created_at'])->orderBy('pivot_created_at', 'desc')->wherePivot('bought', true);
+    }
 }

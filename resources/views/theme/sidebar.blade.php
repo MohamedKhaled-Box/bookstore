@@ -38,7 +38,7 @@
                 <span>Categories</span>
             </a>
         </li>
-        {{--
+
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item {{ request()->is('admin/authors*') ? 'active' : '' }}">
             <a class="nav-link text-right" href="{{ route('authors.index') }}">
@@ -65,7 +65,7 @@
             <a class="nav-link text-right" href="{{ route('all.product') }}">
                 <i class="fas fa-shopping-bag"></i>
                 <span>items</span></a>
-        </li> --}}
+        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">

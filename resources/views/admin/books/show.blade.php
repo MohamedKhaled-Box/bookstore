@@ -38,7 +38,7 @@
                             <tr>
                                 <th>cover image</th>
                                 <td>
-                                    <img class="img-fluid img-thumbnail" src="{{ asset('' . $book->cover_image) }}"
+                                    <img class="img-fluid img-thumbnail" src="{{ asset('storage/' . $book->cover_image) }}"
                                         alt="Cover image">
                                 </td>
                             </tr>

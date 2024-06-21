@@ -27,7 +27,7 @@
                             <div class="card mb-3">
                                 <div class="card-img-actions">
                                     <a href="{{ route('book.details', $book) }}" class="text-default mb-2">
-                                        <img src="{{ asset('' . $book->cover_image) }}" class="card-img img-fluid"
+                                        <img src="{{ asset('storage/' . $book->cover_image) }}" class="card-img img-fluid"
                                             width="96" height="350" alt="">
                                     </a>
                                 </div>
@@ -46,10 +46,24 @@
                                     </div>
                                     <h3 class="mb-0 font-weight-semibold">{{ $book->price }} $</h3>
                                     <div>
-                                        <i class="fa fa-star star"></i>
-                                        <i class="fa fa-star star"></i>
-                                        <i class="fa fa-star star"></i>
-                                        <i class="fa fa-star star"></i>
+                                        <span class="score">
+                                            <div class="score-wrap">
+                                                <span class="stars-active" style="width:{{ $book->rate() * 20 }}%">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                </span>
+                                                <span class="stars-inactive">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
